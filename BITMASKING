@@ -18,7 +18,7 @@ int main(){ _
 		int lo = 0;
 		while(!(i & (1 << lo))) lo++;
 
-		sum[i] = sum[i & (i-1)] + a[lo];
+		sum[i] = sum[i & (i-1)] + a[lo];//it directly sums no iteration to count 1 and add that value
 	}
 	
 	ll ans = 0;
@@ -31,9 +31,9 @@ int main(){ _
 		int r;
 		
 		while(q > 0){
-			r = qr ^ q;
+			r = qr ^ q; // q ^ r = q^(q^qr) = qr
 			if(sum[p] == sum[q] and sum[q] == sum[r]) ans++;
-			q = qr & (q-1);
+			q = qr & (q-1);// this is the most sexy thing ever i mean really it really creates all possible value of 1s appear in qr as it is & so only that thing of qr will be there  
 		}
 	}
 	

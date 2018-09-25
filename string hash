@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int lli;
+typedef vector <int> vi;
+typedef vector <vi> vvi;
+typedef pair <int,int> pr;
+#define fr(i, n) for(int i = 0; i < n; i++)
+#define sz(a) int((a).size())
+#define pb push_back
+#define all(c)(c).begin(), (c).end()
+#define tr(c, i) for (typeof ((c).begin() i = (c).begin(); i != (c).end(); i++)
+#define present(c, x)((c).find(x) != (c).end())
+#define cpresent(c, x)(find(all(c), x) != (c).end())
+
+// for mod power a^b%m use power<lli> (a,b,m)
+template < class mytype >
+mytype power(mytype a, mytype b, mytype m){if (b == 1) return a % m;if (b == 0) return 1;
+lli root = power < lli > (a, b / 2, m);lli ans = (root * root) % m;if (b % 2) ans = (ans * a) % m;
+return ans;
+}
+// for gcd use gcd<int> (a,b)
+template < class type >type gcd(type a, type b){if (a == 0) return b;else return gcd(b % a, a);}
+template < class type >type mod_inv(type a, type p) {return power(a, p - 2, p);}
+int main()
+{
+    int m97 = 1e9 + 7;
+    string s,p;
+    cin >> s >> p;
+    int ns = s.size();
+    int np = p.size();
+    int  hash_p = 0,hash_s = 0;int val= 1;
+    for(int i = 0; i < np ; i++){
+        hash_p = (hash_p + ((int)p[i]*val)%m97)%m97 ;
+        hash_s = (hash_s + ((int)s[i]*val)%m97)%m97 ;
+        val = (val*256)%1000000007;
+    }
+    bool present = false;
+    for(int i = 0 ; i <= ns-np ; i++){           
+        if(hash_p == hash_s){int j;
+            for(j = 0 ; j < np ; j++)
+                if(s[i+j] != p[j]) break;
+            if(j==np){present = true;break;}
+        }
+        if(i == ns-np) break;
+        hash_s = (hash_s + (val*s[i+np]%m97) - s[i])%m97;
+        hash_s = (hash_s*power<lli>(256, (m97 - 2), m97))%m97;
+        
+    }
+    if(present == true) cout << "YES";
+    else cout << "NO";
+   
+    return 0;
+}

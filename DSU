@@ -16,7 +16,8 @@ class dsu {
     x = get(x);
     y = get(y);
     if (x != y) {
-      p[x] = y;
+      if(rand()%2) p[x] = y;
+      else p[y] = x;
       return true;
     }
     return false;
